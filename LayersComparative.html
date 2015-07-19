@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <!--The viewport meta tag is used to improve the presentation and behavior of the samples
+    on iOS devices-->
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+  <title>Comparison Tool</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+
+  <!-- Estilos map-->
+  <link href="LayerSwipe/css/map.css" rel="stylesheet">
+
+  <!-- Esri styles-->
+  <link rel="stylesheet" href="http://js.arcgis.com/3.8/js/dojo/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="http://js.arcgis.com/3.8/js/esri/css/esri.css">
+
+  <style>
+    html, body {
+      height: 97%;
+      width: 98%;
+      margin: 1%;
+    }
+
+    #rightPane {
+      width: 25%;
+    }
+
+    #legendPane {
+      border: solid #97DCF2 1px;
+    }
+    
+  </style>
+
+  <script src="http://js.arcgis.com/3.8/"></script>
+
+  <script type="text/javascript" src="LayerSwipe/js/Variables_globales.js"></script>
+  <script src="js/Informpanel.js" type="text/javascript"></script>
+  <script type="text/javascript" src="LayerSwipe/js/main.js"></script>
+</head>
+
+<body class="claro">
+<!--[if IE 7]>
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+<![endif]-->
+<div id="content" data-dojo-type="dijit/layout/BorderContainer"
+     data-dojo-props="design:'headline', gutters:true"
+     style="width: 100%; height: 100%; margin: 0;">
+
+  <div id="rightPane"
+       data-dojo-type="dijit/layout/ContentPane"
+       data-dojo-props="region:'right'">
+
+    <div data-dojo-type="dijit/layout/AccordionContainer">
+      <div data-dojo-type="dijit/layout/ContentPane" id="legendPane"
+           data-dojo-props="title:'Legend', selected:true">
+
+        <div id="legendDiv"></div>
+        <div id="legendDiv2" style="display: none">
+            <br/><label id="legendtitle" style="width: 100%; height: auto; font-size:larger"></label>
+            <br/>
+            <br/><img id="imaglegend" style="width: 100%; height: auto" />
+            <strong id="Units"  style="font-size:larger"></strong>
+            <br/>
+            <br/><p id="LeftInfoLayer" />
+            <br/>
+            <br/><p id="RightInfoLayer" />
+        </div>
+        <div id="legendDiv3" style="display: none">
+            <br/><label id="legendtitle1" style="width: 100%; height: auto; font-size:larger"></label>
+            <br/>
+            <br/><img id="imaglegend1" style="width: 100%; height: auto" />
+            <strong id="Units1"  style="font-size:larger"></strong>
+            <br/>
+            <br/><p id="InfoLayer" />
+        </div>
+      </div>
+
+      <div data-dojo-type="dijit/layout/ContentPane"
+           data-dojo-props="title:'Metadata'">
+        <div id="MetadataDiv" style="display: none">
+            <br/><b id="metadat0">Parameter Definition:</b>
+            <br/><p id="metadata1" />
+            <br/>
+            <br/><p id="metadata2" />
+        </div>
+
+        <div id="toggle" style="padding: 2px 2px;"></div>
+
+      </div>
+    </div>
+  </div>
+  <div id="map"
+       data-dojo-type="dijit/layout/ContentPane"
+       data-dojo-props="region:'center'"
+       style="overflow: hidden">
+
+        <div id="HomeButton"></div>
+
+       <!-- Show Coordinates -->
+        <span id="infocoord" style="position:absolute; left:15px; bottom:5px; color:#000; z-index:50;"></span>
+
+      <H1 id="NewSelect" style="position:absolute; left:20px; top:80px; z-Index:999;; display:none">
+                    <button type="button" class="btn btn-sm btn-primary btn-navegacion" onclick="OpenSelectPanel()"><b>New Select</b></button>
+       </H1>
+
+       <div class="panel panel-primary" id="FirstPanel" style="position:absolute; right:420px; top:130px; z-Index:999;">
+            <div class="panel-heading">
+                <h3 class="panel-title">Select Action Panel</h3>
+            </div>
+            <div class="panel-body">
+                <H1 align="center">
+                    <button type="button" class="btn btn-sm btn-primary btn-navegacion" onclick="Showonelayer()">Show one layer</button>
+                </H1>
+                <br/>
+                <H1 align="center">
+                    <button type="button" class="btn btn-sm btn-primary btn-navegacion" onclick="Showcomparativelayers()">Compare two layers</button>
+                </H1>
+            </div>
+       </div>
+
+      <div class="panel panel-primary" id="PanelSelect" style="position:absolute; right:420px; top:130px; z-Index:999; display:none">
+            <div class="panel-heading">
+                <h3 class="panel-title">Select Layers Panel</h3>
+            </div>
+            <div class="panel-body">
+                <label>Parameter</label>
+                <br/><select class="combobox-container" placeholder="Choose a layer" required autofocus id="Select5" onchange="parameter_selected()" >
+                    <option value="">Choose a Parameter</option>
+                    <option value="1">Temperature</option>
+                    <option value="2">Chlorophyll</option>
+                </select>
+                <br/>
+                <br/><label>Layer 1</label>
+                <br/><select class="combobox-container" placeholder="Choose a layer" required autofocus id="Select1" onchange="layer1_selected()" disabled="disabled" >
+                    <option value="">Choose a Month</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+                <br/>
+                <br/><select class="combobox-container" placeholder="Choose a layer" required autofocus id="Select2" disabled="disabled" >
+                    <option value="">Choose a Year</option>
+                </select>
+                <br/>
+                <br/><label>Layer 2</label>
+                <br/><select class="combobox-container" placeholder="Choose a layer" required autofocus id="Select3" onchange="layer2_selected()" disabled="disabled" >
+                    <option value="">Choose a Month</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+                <br/>
+                <br/><select class="combobox-container" placeholder="Choose a layer" required autofocus id="Select4" disabled="disabled" >
+                    <option value="">Choose a Year</option>
+                </select>
+                <br/>
+                <H1 align="center">
+                    <button type="button" class="btn btn-sm btn-primary btn-navegacion" onclick="SelectLayers()">OK</button>
+                </H1>
+            </div>
+       </div>
+
+
+      <div class="panel panel-primary" id="SelectonelayerPanel" style="position:absolute; right:420px; top:130px; z-Index:999; display:none">
+            <div class="panel-heading">
+                <h3 class="panel-title">Select Layers Panel</h3>
+            </div>
+            <div class="panel-body">
+                <label>Parameter</label>
+                <br/><select class="combobox-container" placeholder="Choose a layer" required autofocus id="Select6" onchange="parameter_selected_one()" >
+                    <option value="">Choose a Parameter</option>
+                    <option value="1">Temperature</option>
+                    <option value="2">Chlorophyll</option>
+                </select>
+                <br/>
+                <br/><label>Layer</label>
+                <br/><select class="combobox-container" placeholder="Choose a layer" required autofocus id="Select7" onchange="layer_selected()" disabled="disabled" >
+                    <option value="">Choose a Month</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+                <br/>
+                <br/><select class="combobox-container" placeholder="Choose a layer" required autofocus id="Select8" disabled="disabled" >
+                    <option value="">Choose a Year</option>
+                </select>
+                <H1 align="center">
+                    <button type="button" class="btn btn-sm btn-primary btn-navegacion" onclick="SelectOneLayer()">OK</button>
+                </H1
+            </div>
+       </div>
+
+       <div id="swipeDiv"></div>
+
+       <!-- InformPanel -->
+        <div class="well" id="informpanel"
+            style="position:absolute; display:block; width: 300px; height: 200px; top: 50%; left: 50%; margin-top: -50px; margin-left: -150px; z-Index:999">
+            <img style="position:relative; top: 50%; left: 50%; margin-top: -70px; margin-left: -40px" src="Images/waiting.gif" />
+            <p id="cargando"; style="position:absolute; font-family:Georgia; font-size:medium; text-align:center; top: 50%; left: 50%; margin-top: 20px; margin-left: -20px">Loading</p>
+        </div>
+
+  </div>
+</div>
+
+<!-- Carga inform panel al cargarse la página -->
+<script language="javascript">
+    timerID = setTimeout("fTimer()", 500);
+</script>
+
+</body>
+</html>

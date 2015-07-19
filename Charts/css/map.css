@@ -1,0 +1,20 @@
+ #header {
+        background-image: url(../images/banner.jpg); background-repeat: repeat-x;
+        margin: 2px;
+        border: solid 4px #224a54;
+        color:white; font-size:18pt; 
+        text-align:left; font-weight:bold; height:70px;
+}
+      
+ #map {
+        margin: 5px;
+        border:solid 4px #224a54;
+        -moz-border-radius: 4px;
+}
+
+#footer {
+        margin: 2px;
+        border: solid 2px #224a54;
+        background-color:#ecefe4;color:#3f3f3f;
+       font-size:10pt; text-align:center; height:40px;
+      }

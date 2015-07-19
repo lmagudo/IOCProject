@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="ftp://jongarrido.es/bootstrap" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FTP" replaceMatchingFiles="True" userName="root" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="Web.config" publishTime="12/11/2013 18:23:12" />
+    <file relUrl="bin/BootstrapBase.dll" publishTime="12/11/2013 18:23:10" />
+    <file relUrl="css/bootstrap.css" publishTime="12/11/2013 18:03:22" />
+    <file relUrl="js/jquery-1.9.1.js" publishTime="12/11/2013 16:45:07" />
+    <file relUrl="packages.config" publishTime="12/11/2013 16:45:07" />
+    <file relUrl="bin/BootstrapBase.pdb" publishTime="12/11/2013 18:23:10" />
+    <file relUrl="js/bootstrap.min.js" publishTime="12/11/2013 16:45:07" />
+    <file relUrl="css/map.css" publishTime="12/11/2013 17:42:52" />
+    <file relUrl="Index.html" publishTime="12/11/2013 18:07:43" />
+    <file relUrl="js/jquery-1.9.1.min.js" publishTime="12/11/2013 16:45:07" />
+    <file relUrl="css/bootstrap-theme.css" publishTime="12/11/2013 16:45:07" />
+    <file relUrl="js/main.js" publishTime="12/11/2013 17:21:36" />
+    <file relUrl="fonts/glyphicons-halflings-regular.svg" publishTime="12/11/2013 16:45:07" />
+    <file relUrl="js/jquery-1.9.1-vsdoc.js" publishTime="12/11/2013 16:45:07" />
+    <file relUrl="css/bootstrap-theme.min.css" publishTime="12/11/2013 16:45:07" />
+    <file relUrl="js/bootstrap.js" publishTime="12/11/2013 16:45:07" />
+  </publishProfile>
+</publishData>

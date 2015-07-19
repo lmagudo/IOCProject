@@ -1,0 +1,10 @@
+C:\Users\Win7\documents\visual studio 2010\Projects\BootstrapBase\BootstrapBase\bin\BootstrapBase.dll
+C:\Users\Win7\documents\visual studio 2010\Projects\BootstrapBase\BootstrapBase\bin\BootstrapBase.pdb
+C:\Users\Win7\documents\visual studio 2010\Projects\BootstrapBase\BootstrapBase\obj\Debug\BootstrapBase.csprojResolveAssemblyReference.cache
+C:\Users\Win7\documents\visual studio 2010\Projects\BootstrapBase\BootstrapBase\obj\Debug\BootstrapBase.dll
+C:\Users\Win7\documents\visual studio 2010\Projects\BootstrapBase\BootstrapBase\obj\Debug\BootstrapBase.pdb
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\Projects\BootstrapBase\BootstrapBase\bin\BootstrapBase.dll
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\Projects\BootstrapBase\BootstrapBase\bin\BootstrapBase.pdb
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\Projects\BootstrapBase\BootstrapBase\obj\Debug\BootstrapBase.csprojResolveAssemblyReference.cache
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\Projects\BootstrapBase\BootstrapBase\obj\Debug\BootstrapBase.dll
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\Projects\BootstrapBase\BootstrapBase\obj\Debug\BootstrapBase.pdb

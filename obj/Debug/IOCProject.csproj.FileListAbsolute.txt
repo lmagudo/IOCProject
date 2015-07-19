@@ -1,0 +1,30 @@
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\Projects\IOCProject\BootstrapBase\bin\BootstrapBase.dll
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\Projects\IOCProject\BootstrapBase\bin\BootstrapBase.pdb
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\Projects\IOCProject\BootstrapBase\obj\Debug\BootstrapBase.dll
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\Projects\IOCProject\BootstrapBase\obj\Debug\BootstrapBase.pdb
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\Projects\IOCProject\BootstrapBase\obj\Debug\IOCProject.csprojResolveAssemblyReference.cache
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\IOCProject\BootstrapBase\bin\BootstrapBase.dll
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\IOCProject\BootstrapBase\bin\BootstrapBase.pdb
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\IOCProject\BootstrapBase\obj\Debug\IOCProject.csprojResolveAssemblyReference.cache
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\IOCProject\BootstrapBase\obj\Debug\BootstrapBase.dll
+C:\Users\Luis Miguel\Documents\Visual Studio 2010\IOCProject\BootstrapBase\obj\Debug\BootstrapBase.pdb
+C:\Users\luis.agudo\Documents\Visual Studio 2012\Projects\IOC\bin\BootstrapBase.dll
+C:\Users\luis.agudo\Documents\Visual Studio 2012\Projects\IOC\bin\BootstrapBase.pdb
+C:\Users\luis.agudo\Documents\Visual Studio 2012\Projects\IOC\obj\Debug\IOCProject.csprojResolveAssemblyReference.cache
+C:\Users\luis.agudo\Documents\Visual Studio 2012\Projects\IOC\obj\Debug\BootstrapBase.dll
+C:\Users\luis.agudo\Documents\Visual Studio 2012\Projects\IOC\obj\Debug\BootstrapBase.pdb
+C:\Users\luis.agudo\Documents\Visual Studio 2012\Projects\IOC\IOC\bin\BootstrapBase.dll
+C:\Users\luis.agudo\Documents\Visual Studio 2012\Projects\IOC\IOC\bin\BootstrapBase.pdb
+C:\Users\luis.agudo\Documents\Visual Studio 2012\Projects\IOC\IOC\obj\Debug\IOCProject.csprojResolveAssemblyReference.cache
+C:\Users\luis.agudo\Documents\Visual Studio 2012\Projects\IOC\IOC\obj\Debug\BootstrapBase.dll
+C:\Users\luis.agudo\Documents\Visual Studio 2012\Projects\IOC\IOC\obj\Debug\BootstrapBase.pdb
+C:\temp\IOC_Curro\IOC\IOC\bin\BootstrapBase.dll
+C:\temp\IOC_Curro\IOC\IOC\bin\BootstrapBase.pdb
+C:\temp\IOC_Curro\IOC\IOC\obj\Debug\IOCProject.csprojResolveAssemblyReference.cache
+C:\temp\IOC_Curro\IOC\IOC\obj\Debug\BootstrapBase.dll
+C:\temp\IOC_Curro\IOC\IOC\obj\Debug\BootstrapBase.pdb
+C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOC\bin\BootstrapBase.dll
+C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOC\bin\BootstrapBase.pdb
+C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOC\obj\Debug\IOCProject.csprojResolveAssemblyReference.cache
+C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOC\obj\Debug\BootstrapBase.dll
+C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOC\obj\Debug\BootstrapBase.pdb

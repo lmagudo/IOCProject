@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+
+    <title>IOC - IEO Project</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/justified-nav.css" rel="stylesheet" type="text/css" />
+
+    <!-- Estilos map-->
+    <link href="css/map.css" rel="stylesheet">
+
+    <style>
+    #BasemapToggle {
+      position: absolute;
+      top: 170px;
+      left: 20px;
+      z-index: 50;
+    }
+    
+    #IrArriba {
+        position: fixed;
+        bottom: 30px; /* Distancia desde abajo */
+        right: 30px; /* Distancia desde la derecha */
+    }
+
+    #IrArriba span {
+        width: 60px; /* Ancho del botón */
+        height: 60px; /* Alto del botón */
+        display: block;
+        background: url(Images/flecha_arriba.PNG) no-repeat center center;
+    }
+    
+    .centrar
+	{
+		position: absolute;
+		/*nos posicionamos en el centro del navegador*/
+		top:50%;
+		left:50%;
+		/*determinamos una anchura*/
+		width:400px;
+		/*indicamos que el margen izquierdo, es la mitad de la anchura*/
+		margin-left:-200px;
+		/*determinamos una altura*/
+		height:300px;
+		/*indicamos que el margen superior, es la mitad de la altura*/
+		margin-top:-150px;
+		padding:5px;
+	}
+  </style>
+
+    <!-- Esri styles-->
+    <link rel="stylesheet" href="http://js.arcgis.com/3.8/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.8/js/esri/css/esri.css"> 
+    
+    <!-- Esri styles popups-->
+    <link rel="stylesheet" type='text/css' href='http://serverapi.arcgisonline.com/jsapi/arcgis/2.4/js/esri/dijit/css/Popup.css'/>
+    <link rel="stylesheet" type='text/css' href='http://serverapi.arcgisonline.com/jsapi/arcgis/2.4/js/esri/dijit/css/PopupMobile.css'/>
+
+    <script src="http://js.arcgis.com/3.8/"></script>
+
+    <script type="text/javascript" src="js/Variables_globales.js"></script>
+    <script src="js/Informpanel.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/Query.js"></script>
+    <script type="text/javascript" src="js/ExportData.js"></script>
+
+    <!-- Asistente de código API Javascripot 3.8 para VS2010-->
+    <!--script type="text/javascript" src="js/jsapi_vsdoc10_v38.js"></script-->
+    
+    <!-- Script seguimiento Google Analytics-->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-48863311-1', 'lmagudo.com');
+        ga('send', 'pageview');
+    </script>
+
+  </head>
+
+  <body onload="ocultainformpanel()" >
+
+  <div align="center" style="margin-left:60px; margin-right:60px" >
+            <a href="http://www.aecid.es/ES" target="_blank" >
+                <img src="Images/Gob_CE.png" width="auto" height="90px" align="left" />
+            </a>
+            <a href="http://ioc-unesco.org/" target="_blank" >
+                <img src="Images/UNESCO-IOC.png" width="auto" height="90px" />
+            </a>            
+            <a href="http://www.ieo.es/web/ieo/eventos-centenario" target="_blank" >
+                <img src="Images/IOE_Centenario.png" width="auto" height="70px" align="right" />
+            </a>
+            <a href="http://www.ieo.es/" target="_blank" >
+                <img src="Images/LogoIEO.png" width="auto" height="70px" align="right" />
+            </a>
+  </div>
+    </br>   
+    <img src="Images/Titulo.png" width="100%" />
+
+    <div class="container">
+    </br>
+      <div class="masthead">
+        <ul class="nav nav-justified">
+          <li id="Home" class="active"><a href="#">Home</a></li>
+          <li id="TheProject"><a href="#" onclick="Popup('PopupProject')">The Project</a></li>
+          <li id="Dropdown" class="dropdown">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#">Dropdown <b class="caret"></b></a>
+              <ul role="menu" class="dropdown-menu">
+                <li><a href="#parametersprofiles" onclick="abrirVentana('Charts.html')">Oceanographical parameter profiles</a></li>
+                <li><a href="#elevationprofiles" onclick="abrirVentana('Profile.html')">Elevation Profile</a></li>
+                <li><a href="#comparative" onclick="abrirVentana('LayersComparative.html')">Layer Swipe</a></li>
+                <li class="divider"></li>
+                <li><a href="#GeoHabitats" onclick="abrirVentana('GeoHabitats.html')">Separated link</a></li>
+                <li class="divider"></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          <li id="Query"><a href="#" onclick="MostrarPaneles()">Query</a></li>
+          <li id="About"><a href="#" >About</a></li>
+          <li id="Contact"><a href="#" onclick="Popup('PopupContacto')">Contact</a></li>
+        </ul>
+      </div>
+
+     <!-- Map -->
+    <div id="mainWindow" 
+         data-dojo-type="dijit/layout/BorderContainer" 
+         data-dojo-props="design:'headline', gutters:false" 
+         style="width:100%; height:680px;">
+
+      <div id="map" class="map" >
+
+        <div id="HomeButton"></div>
+
+        <!-- Basemap -->              
+        <div id="BasemapToggle"></div>        
+
+        <!-- Legend Pane-->
+        <button type="button" class="btn btn-sm btn-primary btn-navegacion" title="Show Legend" onclick="showlegend()" style="position:absolute; left:100px; top:1px; z-Index:999; display:block">Legend</button>
+
+        <button type="button" class="btn btn-sm btn-primary btn-navegacion" title="Print Map" onclick="PrintResults()" style="position:absolute; left:180px; top:1px; z-Index:999; display:block">Print Map</button>
+        
+        <!-- that will be used for the print dijit -->
+        <div id="print_button"></div>
+             
+            <div class="panel-group" id="leftPane" style="position:absolute; left:100px; bottom:100px; z-Index:999; width:300px; display:none">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><b>Legend</b></a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body" id="legendDiv" style="height:300px;overflow-y:visible;overflow-x:hidden">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><b>Layer List</b></a>
+                        </h4>
+                    </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body" id="checkDiv">
+                       <span id="layer_list">
+                       <input id='mangroves' type="checkbox" class='list_item' onchange="updateLayerVisibility(this.value)" name="option1" value="mangroves" checked> <b>Mangroves</b><br>
+                       <input id='coldcoral' type="checkbox" class='list_item' onchange="updateLayerVisibility(this.value)" name="option2" value="coldcoral" checked> <b>Cold Coral</b><br>
+                       <input id='marineEcoregions' type="checkbox" class='list_item' onchange="updateLayerVisibility(this.value)" name="option3" value="marineEcoregions" checked> <b>Marine Ecoregions</b><br>
+                       <input id='pelagicProvinces' type="checkbox" class='list_item' onchange="updateLayerVisibility(this.value)" name="option4" value="pelagicProvinces" checked> <b>Pelagic Provinces</b><br>
+                       <input id='mygraphiclayer' type="checkbox" class='list_item' onchange="updateLayerVisibility(this.value)" name="option5" value="mygraphiclayer" > <b>Query Layer</b><br>
+                       <br>
+                       </span>
+                    </div>
+                </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><b>Metadata</b></a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse">
+      <div class="panel-body">
+        <p>Click on the layer in order to get metadata information <a href="http://www.tutorialrepublic.com/css-tutorial/" target="_blank">Learn more.</a></p>
+      </div>
+    </div>
+  </div>
+</div>      
+
+      <!-- Find Panel -->
+      <div class="panel panel-primary" id="PanelFind" style="position:absolute; right:30px; top:150px; z-Index:999; display:none">
+        <div class="panel-heading">
+            <h3 class="panel-title">Find Features</h3>
+        </div>
+        <div class="panel-body">
+            <label>Layer</label>
+            <br/><select class="combobox-container" placeholder="Choose a layer" required autofocus id="Layer_find" onchange="layer_selected()" >
+                <option value="">Choose a Layer</option>
+                <option value="CTD">CTD</option>
+                <option value="DRB">DRB</option>
+                <option value="GLD">GLD</option>
+                <option value="OTHER">OTHER</option>
+            </select>
+            <br/>
+            <br/><label>Parameter</label>
+            <br/><select class="combobox-container" placeholder="Choose a parameter" required autofocus id="Parameter_find" disabled="disabled" >
+                <option value="">Choose a Parameter</option>
+            </select>
+            <br/>
+            <br/><label>Month</label>
+            <br/><select class="combobox-container" placeholder="Month" required autofocus id="Month_find" disabled="disabled" onchange="month_selected()" >
+                <option id="month_default" value="0" selected="selected" >Choose a month</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+            <br/>
+            <br/><label>Year</label>
+            <br/><select class="combobox-container" placeholder="Choose a Year" required autofocus id="Year_find" disabled="disabled" >
+                <option id="year_default" value="">Choose a Year</option>
+            </select>
+            <H1 align="center">
+                <button type="button" class="btn btn-sm btn-primary btn-navegacion" onclick="FindFeatures()">Find</button>
+                <button type="button" class="btn btn-sm btn-primary btn-navegacion" onclick="ClearFeatures()">Clear</button>
+            </H1>
+            <H1 align="center">
+                <button type="button" class="btn btn-sm btn-primary btn-navegacion" onclick="OpenExportPanel()">Export Result</button>
+            </H1>
+        </div>
+      </div>
+
+      <!-- Export Panel -->
+      <div class="panel panel-primary" id="ExportPanel" style="position:absolute; right:300px; top:150px; z-Index:999; display:none">
+        <div class="panel-heading">
+            <h3 class="panel-title">Export Features</h3>
+        </div>
+        <div class="panel-body">
+            <label>Select Format</label>
+            <br/><select class="combobox-container" placeholder="Choose a format" required autofocus id="formatBox">
+                <option selected="selected">Shapefile - SHP - .shp</option>
+                <option>File Geodatabase - GDB - .gdb</option>
+                <option>Autodesk AutoCAD - DXF_R2007 - .dxf</option>
+                <option>Autodesk AutoCAD - DWG_R2007 - .dwg</option>
+                <option>Bentley Microstation Design (V8) - DGN_V8 - .dgn</option>
+            </select>
+            <br/>
+            <H1 align="center">
+                <button type="button" class="btn btn-sm btn-primary btn-navegacion" onclick="ExportData()">OK</button>                
+            </H1>
+        </div>
+      </div>
+
+      <!-- InformPanel -->
+      <div class="well" id="informpanel"
+          style="position:absolute; display:block; width: 300px; height: 200px; top: 50%; left: 50%; margin-top: -50px; margin-left: -150px; z-Index:999">
+          <img style="position:relative; top: 50%; left: 50%; margin-top: -70px; margin-left:-35px" src="Images/waiting.gif" />
+          <p id="cargando" style="position:absolute; font-family:Georgia; font-size:medium; text-align:center; top: 50%; left: 50%; margin-top: 20px; margin-left: -20px">Loading</p>
+      </div>
+
+      <!-- Show Coordinates -->
+      <span id="infocoord" style="position:absolute; left:15px; bottom:5px; color:#000; z-index:50;"></span>
+
+    </div><!-- /.map -->
+
+    </div>
+
+      <!-- Example row of columns -->
+      <div class="row" style="position:relative; top:0px; z-Index:999">
+        <div class="col-lg-4">
+          <h2>Charts & Profiles Tool</h2>
+          <p>To calculate charts and profiles, three different selections are possible: an area, a line, and/or a time series. They can be displayed individually or on the same view.</p>
+          <p>By drawing a polygon, a graph containing the average of the biological indices in the study area will be obtained (Source: <a href="http://www.ieo.es/" target="_blank" >IEO</a>). </p>
+          <p>By drawing a line or a polyline, it will be created a profile with the values of sea surface temperature (Source: <a href="http://gmis.jrc.ec.europa.eu/" target="_blank" >GMIS</a>). </p>
+          <p>By selecting a point, time series of oceanographic variables will be calculated (Source: <a href="http://www.ieo.es/" target="_blank" >IEO</a>). </p>
+          <p><a class="btn btn-primary" href="#" role="button" onclick="abrirVentana('Charts.html')" >Go! &raquo;</a></p>
+        </div>
+        <div class="col-lg-4">
+          <h2>Elevation Profile Tool</h2>
+          <p>A bathymetric profile will be obtained just by drawing a line on the map. For so, select the unit of length and click on the 'rule' tool (Source: <a href="http://www.gebco.net/" target="_blank" >GEBCO</a>). </p>
+          <p><a class="btn btn-primary" href="#" role="button" onclick="abrirVentana('Profile.html')">Go! &raquo;</a></p>
+       </div>
+        <div class="col-lg-4">
+          <h2>Comparative Tool</h2>
+          <p>This tool allows you to compare maps from different time periods. Select the oceanographic parameter interesting for you and then, select two different dates.</p>
+          <p>You can also display just one map (Source: <a href="http://gmis.jrc.ec.europa.eu/" target="_blank" >GMIS</a>). </p>
+          <p><a class="btn btn-primary" href="#" role="button" onclick="abrirVentana('LayersComparative.html')">Go! &raquo;</a></p>
+        </div>
+      </div>
+
+      <!-- Site footer -->
+      <div class="footer" style="position:relative; top:0px; z-Index:999">
+        <p>&copy; 2014</p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- /Popups -->
+    <div class="centrar" id="PopupProject" style="display:none">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal" type="button" onclick="Popup('PopupProject')">
+                    <span aria-hidden="true">x</span>
+                    </button>
+                    <h4 id="myLargeModalLabel" class="modal-title">The project</h4>
+                </div>
+                <div class="modal-body">
+                    <p>The CCLME Data Analytic Viewer prototype is a first-stage of a GIS dynamic analytic tool aimed to create meaningful data products at West Africa regional scale, adding value to raw data and producing new scientific knowledge on the ocean and coastal areas of the Canary Current Large Marine Ecosystem (CCLME) countries.</p>
+                    <p>The analysis of the data using the CCLME Data Analytic Viewer facilitates the study of the dynamics and trends of a multiplicity of variables to produce new and valuable information on changes produced during the last 35 years in this region, going from climatic changes to shifts in species due to natural and human induced factors.</p>
+                    <p>The Canary Current LME is a major upwelling region off the coast of northwest Africa. It extends southwards from Canary Islands (Spain) and the Atlantic coast of Morocco, Western Sahara, Mauritania, Senegal, Guinea-Bissau and Gambia, but Cape Verde and the waters of Guinea Conakry are considered adjacent areas within the zone of influence of the CCLME.</p>
+                    <p>The CCLME Data Analytic Viewer has been developed under the frame of the project Enhancing Oceanography Capacities on Western Africa countries. This project has been undertaken by the Intergovernmental Oceanographic Commission of UNESCO (IOC-UNESCO), and it has been generously funded by the Spanish Agency for International Development Cooperation (AECID). IOC-UNESCO partner for this project is the Spanish Oceanographic Institute (IEO), which hosts the CCLME Data Analytic Viewer in their servers.</p>
+                </div>
+            </div>
+        </div>
+     </div>
+
+     <div class="centrar" id="PopupContacto" style="display:none">
+        <div class="modal-dialog modal-lg" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal" type="button" onclick="Popup('PopupContacto')">
+                    <span aria-hidden="true">x</span>
+                    </button>
+                    <h4 id="H1" class="modal-title">Contact</h4>
+                </div>
+                <div class="modal-body">
+                    <p>The CCLME Data Analytic Viewer is an IOC-UNESCO tool, hosted by the IEO in their servers.</p>
+                    </br>
+                    <p>IOC-UNESCO</p>
+                    <p>7 Place Fontenoy</p>
+                    <p>75732 Paris cedex 15</p>
+                    <p>France</p>
+                    </br>
+                    <p>Project responsible: Dr Luis Valdes, Head of Ocean Science Section</p>
+                    <p><a href="mailto:jl.valdes@unesco.org">jl.valdes@unesco.org</a></p>
+                    </br>
+                    <p>For questions about the website applications or investigate how to contribute data to CCLME Data Analytic Viewer, email to:</p>
+                    <p><a href="mailto:lmagudo@gmail.com">lmagudo@gmail.com</a></p>
+                    </br>
+                    <p>For questions about the data server and problems accessing the data, email to:</p>
+                    <p><a href="mailto:lmagudo@gmail.com">lmagudo@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+     </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="js/jquery.PrintArea.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+    <!-- Carga inform panel al cargarse la página -->
+    <script language="javascript">
+        timerID = setTimeout("fTimer()", 500);
+    </script>
+
+    <div id='IrArriba'>
+        <a href='#Arriba'><span/></a>
+    </div>
+    <script type='text/javascript'>
+    //<![CDATA[
+        // Botón para Ir Arriba
+        jQuery.noConflict();
+        jQuery(document).ready(function () {
+            jQuery("#IrArriba").hide();
+            jQuery(function () {
+                jQuery(window).scroll(function () {
+                    if (jQuery(this).scrollTop() > 200) {
+                        jQuery('#IrArriba').fadeIn();
+                    } else {
+                        jQuery('#IrArriba').fadeOut();
+                    }
+                });
+                jQuery('#IrArriba a').click(function () {
+                    jQuery('body,html').animate({
+                        scrollTop: 0
+                    }, 800);
+                    return false;
+                });
+            });
+
+        });
+    //]]>
+    </script>
+  </body>
+</html>
