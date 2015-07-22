@@ -83,7 +83,7 @@
             <div>
             <H1 align="center">
                 <button type="button" class="btn btn-sm btn-primary btn-navegacion" id="buttondraw" onclick="drawpolygon()">Area</button>
-                <button type="button" class="btn btn-sm btn-primary btn-navegacion" id="buttonProfile" onclick="drawprofile()" style="display: inline">Profile</button>                
+                <button type="button" class="btn btn-sm btn-primary btn-navegacion" id="buttonProfile" onclick="profilePanel()" style="display: inline">Profile</button>                
                 <br />
                 <button type="button" class="btn btn-sm btn-primary btn-navegacion" id="buttonTimeSerie" onclick="drawTimeSeries()">Time Series</button>
                 <br />
@@ -103,6 +103,46 @@
             </div>
         </div>
        </div>
+
+      <!-- Profile Panel -->
+      <div class="panel panel-primary" id="PanelProfile" style="position:absolute; right:30px; top:150px; z-Index:999; display:none">
+        <div class="panel-heading">
+            <h3 class="panel-title">Select Dataset Panel</h3>
+        </div>
+        <div class="panel-body">
+            <label>Layer</label>
+            <br/><select class="combobox-container" placeholder="Choose a parameter" required autofocus id="Parameter_profile" onchange="Parameter_selected()" >
+                <option value="">Choose a Layer</option>
+                <option value="SST">Sea Surface Temperature</option>
+            </select>
+            <br/>
+            <br/><label>Month</label>
+            <br/><select class="combobox-container" placeholder="Month" required autofocus id="Month_profile" disabled="disabled" onchange="month_selected()" >
+                <option id="month_default" value="0" selected="selected" >Choose a month</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+            <br/>
+            <br/><label>Year</label>
+            <br/><select class="combobox-container" placeholder="Choose a Year" required autofocus id="Year_profile" disabled="disabled" >
+                <option id="year_default" value="">Choose a Year</option>
+                <option value="2005">2005</option>
+            </select>
+            <H1 align="center">
+                <button type="button" id="drawProfile" class="btn btn-sm btn-primary btn-navegacion" onclick="drawprofile()" disabled="disabled">Draw Profile</button>
+            </H1>
+        </div>
+      </div>
 
        <!-- Show Coordinates -->
       <span id="infocoord" style="position:absolute; left:15px; bottom:5px; color:#000; z-index:50;"></span>

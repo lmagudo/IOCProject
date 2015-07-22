@@ -243,6 +243,47 @@ require([
       //#endregion
             
       //#region Profile
+
+      function profilePanel() {
+          if (dojo.byId("PanelProfile").style.display == "none") {
+              dojo.byId("PanelProfile").style.display = "block";
+              dojo.byId("PanelCharts").style.display = "none";
+          }
+
+          else {
+              dojo.byId("PanelProfile").style.display = "none";
+              dojo.byId("PanelCharts").style.display = "none";
+          }
+
+      }
+
+      function Parameter_selected() {
+          console.log("hola");
+          //Igualamos a la variable value_layer el valor de la capa seleccionado por el usuario
+          var e = dojo.byId("Parameter_profile");
+          value_layer = e.options[e.selectedIndex].value;
+
+          var f = dojo.byId("Month_profile");
+          f.disabled = false;
+
+          //Desabilitamos el combo años para y le sugerimos que vuelvan a elegir un mes poniendo el valor del combo mes en "Choose a month"
+          var s = dojo.byId("year_default");
+          s.selected = "selected";
+
+          var j = dojo.byId("Year_profile");
+          j.disabled = true;
+
+          var k = dojo.byId("month_default");
+          k.selected = "selected";
+      }
+
+      function month_selected() {          
+
+          var e = dojo.byId("Year_profile");
+          e.disabled = false;
+          dojo.byId("drawProfile").disabled = false;
+      }
+
       function drawprofile() {
           tb = new esri.toolbars.Draw(map);
           tb.on("draw-end", DrawResults2);
@@ -265,6 +306,16 @@ require([
                 timerID = setTimeout("fTimer()", 500);
 
                 tb.deactivate();
+                //Cierro el panel de profile
+                if (dojo.byId("PanelProfile").style.display == "block") {
+                    dojo.byId("PanelProfile").style.display = "none";
+                    dojo.byId("PanelCharts").style.display = "block";
+                }
+
+                else {
+                    dojo.byId("PanelProfile").style.display = "block";
+                    dojo.byId("PanelCharts").style.display = "block";
+                }
 
                 if (dojo.byId("buttonProfile").style.display == "inline") {
                     dojo.byId("buttonProfile").style.display = "none";
@@ -337,6 +388,16 @@ require([
             else {
                 dojo.byId("buttonProfile").style.display = "inline";
                 dojo.byId("buttonNewProfile").style.display = "none";
+            }
+
+            if (dojo.byId("PanelProfile").style.display == "none") {
+                dojo.byId("PanelProfile").style.display = "block";
+                dojo.byId("PanelCharts").style.display = "none";
+            }
+
+            else {
+                dojo.byId("PanelProfile").style.display = "none";
+                dojo.byId("PanelCharts").style.display = "none";
             }
 
             $('#container2').highcharts().destroy();
