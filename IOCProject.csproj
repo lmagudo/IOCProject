@@ -117,7 +117,9 @@
     <Content Include="index.html" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\DragDrop.js" />
     <Content Include="js\ExportData.js" />
+    <Content Include="js\GeodesicTools.js" />
     <Content Include="js\Informpanel.js" />
     <Content Include="js\jquery-1.9.1-vsdoc.js" />
     <Content Include="js\jquery-1.9.1.js" />

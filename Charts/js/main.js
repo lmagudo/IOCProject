@@ -458,7 +458,6 @@ require([
 
                 graphicpoint = new Graphic(geometry, symbol);
                 map.graphics.add(graphicpoint);
-                console.log(map.graphics);
 
                 showTimeSeries(geometry);
 

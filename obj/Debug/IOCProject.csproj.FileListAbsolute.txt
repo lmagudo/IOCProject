@@ -28,3 +28,8 @@ C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOC\bin\BootstrapBase.
 C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOC\obj\Debug\IOCProject.csprojResolveAssemblyReference.cache
 C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOC\obj\Debug\BootstrapBase.dll
 C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOC\obj\Debug\BootstrapBase.pdb
+C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOCProject\bin\BootstrapBase.dll
+C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOCProject\bin\BootstrapBase.pdb
+C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOCProject\obj\Debug\IOCProject.csprojResolveAssemblyReference.cache
+C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOCProject\obj\Debug\BootstrapBase.dll
+C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOCProject\obj\Debug\BootstrapBase.pdb

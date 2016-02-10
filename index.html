@@ -67,13 +67,15 @@
     <link rel="stylesheet" type='text/css' href='http://serverapi.arcgisonline.com/jsapi/arcgis/2.4/js/esri/dijit/css/Popup.css'/>
     <link rel="stylesheet" type='text/css' href='http://serverapi.arcgisonline.com/jsapi/arcgis/2.4/js/esri/dijit/css/PopupMobile.css'/>
 
-    <script src="http://js.arcgis.com/3.8/"></script>
+    <script src="http://js.arcgis.com/3.13/"></script>
 
     <script type="text/javascript" src="js/Variables_globales.js"></script>
     <script src="js/Informpanel.js" type="text/javascript"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/Query.js"></script>
+    <script type="text/javascript" src="js/GeodesicTools.js"></script>
     <script type="text/javascript" src="js/ExportData.js"></script>
+    <script type="text/javascript" src="js/DragDrop.js"></script>
 
     <!-- Asistente de código API Javascripot 3.8 para VS2010-->
     <!--script type="text/javascript" src="js/jsapi_vsdoc10_v38.js"></script-->
@@ -152,6 +154,10 @@
         <button type="button" class="btn btn-sm btn-primary btn-navegacion" title="Show Legend" onclick="showlegend()" style="position:absolute; left:100px; top:1px; z-Index:999; display:block">Legend</button>
 
         <button type="button" class="btn btn-sm btn-primary btn-navegacion" title="Print Map" onclick="PrintResults()" style="position:absolute; left:180px; top:1px; z-Index:999; display:block">Print Map</button>
+
+        <button type="button" class="btn btn-sm btn-primary btn-navegacion" title="Geodesic Tools" onclick="ShowGeodesicPanel()" style="position:absolute; left:270px; top:1px; z-Index:999; display:block">Geodesic Tools</button>
+
+        <button type="button" class="btn btn-sm btn-primary btn-navegacion" title="Clear" id="clearButton" style="position:absolute; left:390px; top:1px; z-Index:999; display:block">Clear</button>
         
         <!-- that will be used for the print dijit -->
         <div id="print_button"></div>
@@ -252,6 +258,43 @@
         </div>
       </div>
 
+      <!-- Buffer Panel -->
+     <div class="panel panel-primary" id="Geodesic_Panel" style="position:absolute; right:30px; top:150px; z-Index:999; display:none">
+        <div class="panel-heading">
+            <h3 class="panel-title">Geodesic Tools</h3>
+        </div>
+        <div class="panel-body">
+            <label>Buffer Method</label>
+            <br/>
+            <select class="combobox-container" placeholder="Choose a method" required autofocus id="GeodesicMethod" onchange="Option_selected()" >
+                <option value="">Choose a Method</option>
+                <option value="Euclidean">Euclidean</option>
+                <option value="Geodesic">Geodesic</option>
+            </select>
+            <br>
+            <label>Unit</label>
+            <br/>
+            <select class="combobox-container" placeholder="Choose a Unit of measure" required autofocus id="Unit" onchange="Option_selected()" >
+                <option value="">Choose a Unit of measure</option>
+                <option value="9001">Meters</option>
+                <option value="9036">Kilometers</option>
+                <option value="9035">Miles</option>
+                <option value="9030">Nautical Miles</option>
+            </select>
+            <br>
+            <label>Distance</label>
+            <br/>
+            <input type="text" id="Distance" placeholder="Type a distance" onkeyup="checkInput(this)" required value="" />
+            <br/>
+            <H1 align="center">
+                <button id="CreateBuffer" type="button" class="btn btn-sm btn-primary btn-navegacion" disabled="disabled" onclick="CreateBuffer()">Create Buffer</button>
+            </H1>
+            <H1 align="center">
+                <button type="button" class="btn btn-sm btn-primary btn-navegacion" disabled="disabled" onclick="OpenExportPanel()">Export Result</button>
+            </H1>
+        </div>
+      </div>
+
       <!-- Export Panel -->
       <div class="panel panel-primary" id="ExportPanel" style="position:absolute; right:300px; top:150px; z-Index:999; display:none">
         <div class="panel-heading">
@@ -282,6 +325,14 @@
 
       <!-- Show Coordinates -->
       <span id="infocoord" style="position:absolute; left:15px; bottom:5px; color:#000; z-index:50;"></span>
+      
+     <div id='msg' style='color:red;display:none;padding:4px;'> 'You are using a browser that
+       doesn't support drag/drop use the file upload box below to add your csv:'
+     </div>
+     <form id="uploadForm" style='display:none;padding:4px;' method="post" enctype="multipart/form-data">
+      <input type="file" name="data" id="inFile" size="15" />
+     </form>
+     <span id="status"></span>
 
     </div><!-- /.map -->
 
