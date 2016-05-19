@@ -114,10 +114,26 @@
         //});
 
         toggle = new BasemapToggle({
-            map: map,
+            map: map,           
             basemap: "satellite"
         }, "BasemapToggle");
         toggle.startup();
+
+        toggle.on("load", loadBaseMap);
+        toggle.on("toggle", toogleBaseMap);
+
+        function loadBaseMap() {
+            console.log(jQuery('.basemapTitle').attr("title"));
+            (jQuery('.basemapTitle').attr("title") == 'Imágenes') ? jQuery('.basemapImage').css('background-image', 'url(http://js.arcgis.com/3.13/esri/images/basemap/satellite.jpg)') : jQuery('.basemapImage').css('background-image', 'url(http://js.arcgis.com/3.13/esri/images/basemap/oceans.jpg)');
+        }
+        function toogleBaseMap(evt) {
+            console.log(evt.previousBasemap);
+            setTimeout(function () {
+                (evt.previousBasemap == 'oceans') ? jQuery('.basemapImage').css('background-image', 'url(http://js.arcgis.com/3.13/esri/images/basemap/oceans.jpg)') : jQuery('.basemapImage').css('background-image', 'url(http://js.arcgis.com/3.13/esri/images/basemap/satellite.jpg)');
+            }, 300);
+            
+        }
+        
 
         //Overview Dijit
         overviewMapDijit = new OverviewMap({

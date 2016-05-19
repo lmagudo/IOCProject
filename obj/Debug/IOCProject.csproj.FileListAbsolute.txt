@@ -33,3 +33,9 @@ C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOCProject\bin\Bootstr
 C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOCProject\obj\Debug\IOCProject.csprojResolveAssemblyReference.cache
 C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOCProject\obj\Debug\BootstrapBase.dll
 C:\Users\LuisMiguel\Documents\Visual Studio 2012\Projects\IOCProject\obj\Debug\BootstrapBase.pdb
+C:\Users\LuisMiguel\Documents\Visual Studio 2013\Projects\IOCProject\bin\BootstrapBase.dll.config
+C:\Users\LuisMiguel\Documents\Visual Studio 2013\Projects\IOCProject\bin\BootstrapBase.dll
+C:\Users\LuisMiguel\Documents\Visual Studio 2013\Projects\IOCProject\bin\BootstrapBase.pdb
+C:\Users\LuisMiguel\Documents\Visual Studio 2013\Projects\IOCProject\obj\Debug\IOCProject.csprojResolveAssemblyReference.cache
+C:\Users\LuisMiguel\Documents\Visual Studio 2013\Projects\IOCProject\obj\Debug\BootstrapBase.dll
+C:\Users\LuisMiguel\Documents\Visual Studio 2013\Projects\IOCProject\obj\Debug\BootstrapBase.pdb
