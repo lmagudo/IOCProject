@@ -1,18 +1,18 @@
 ﻿//<![CDATA[
 
-var numeroPuntos = 1;
-var textoCargando = "Loading";
-var maxPuntos = 3;
-var timerID = 0;
-var cargado = false;
-var tiempo = 500;
+PropiedadesMapa.numeroPuntos = 1;
+PropiedadesMapa.textoCargando = "Loading";
+PropiedadesMapa.maxPuntos = 3;
+PropiedadesMapa.timerID = 0;
+PropiedadesMapa.cargado = false;
+PropiedadesMapa.tiempo = 500;
 
 function ocultainformpanel() {
     document.getElementById("informpanel").style.display = "none";
     document.getElementById("cargando").style.display = "none";
-    cargado = false;
-    clearTimeout(timerID);
-    numeroPuntos = 1;
+    PropiedadesMapa.cargado = false;
+    clearTimeout(PropiedadesMapa.timerID);
+    PropiedadesMapa.numeroPuntos = 1;
 }
 
 function fTimer() {
@@ -20,15 +20,15 @@ function fTimer() {
     document.getElementById("cargando").style.display = "block";
 
     var puntos = "";
-    for (i = 0; i < numeroPuntos; i++) {
+    for (i = 0; i < PropiedadesMapa.numeroPuntos; i++) {
         puntos += ".";
     }
-    if (numeroPuntos++ >= maxPuntos) {
-        numeroPuntos = 0;
+    if (PropiedadesMapa.numeroPuntos++ >= PropiedadesMapa.maxPuntos) {
+        PropiedadesMapa.numeroPuntos = 0;
     }
-    document.getElementById("cargando").innerHTML = textoCargando + puntos;
-    if (!cargado) {
-        timerID = setTimeout("fTimer()", 500);
+    document.getElementById("cargando").innerHTML = PropiedadesMapa.textoCargando + puntos;
+    if (!PropiedadesMapa.cargado) {
+        PropiedadesMapa.timerID = setTimeout("fTimer()", 500);
     }
 }
 //]]>

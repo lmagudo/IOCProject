@@ -16,7 +16,7 @@ function MostrarPaneles() {
 function layer_selected() {
     //Igualamos a la variable value_layer el valor de la capa seleccionado por el usuario
     var e = dojo.byId("Layer_find");
-    value_layer = e.options[e.selectedIndex].value;
+    PropiedadesMapa.value_layer = e.options[e.selectedIndex].value;
     
     //Desabilitamos el combo años para y le sugerimos que vuelvan a elegir un mes poniendo el valor del combo mes en "Choose a month"
     var s = dojo.byId("year_default");
@@ -30,7 +30,7 @@ function layer_selected() {
 
 
     //Dependiendo de la capa seleccionada por el usuario el combo de los parámetros se rellenarán con los parámetros existentes para esa capa
-    if (value_layer == "CTD") {
+    if (PropiedadesMapa.value_layer == "CTD") {
         //Activamos el combo de Parametros
         var p = dojo.byId("Parameter_find");
         p.disabled = false;
@@ -59,7 +59,7 @@ function layer_selected() {
     }
 
     //Realizamso las mismas operacionas que en la primera clausula if
-    else if (value_layer == "DRB") {
+    else if (PropiedadesMapa.value_layer == "DRB") {
         var p = dojo.byId("Parameter_find");
         p.disabled = false;
 
@@ -76,7 +76,7 @@ function layer_selected() {
     }
 
     //Realizamso las mismas operacionas que en la primera clausula if
-    else if (value_layer == "GLD") {
+    else if (PropiedadesMapa.value_layer == "GLD") {
         var p = dojo.byId("Parameter_find");
         p.disabled = false;
 
@@ -107,22 +107,21 @@ function month_selected() {
         p.disabled = true;
 
         var paramSelect = dojo.byId("Parameter_find");
-        value_param = paramSelect.options[paramSelect.selectedIndex].value;
+        PropiedadesMapa.value_param = paramSelect.options[paramSelect.selectedIndex].value;
         var monthSelect = dojo.byId("Month_find");
-        value_month = monthSelect.options[monthSelect.selectedIndex].value;
+        PropiedadesMapa.value_month = monthSelect.options[monthSelect.selectedIndex].value;
 
-        var queryTask = new esri.tasks.QueryTask("http://barreto.md.ieo.es/arcgis/rest/services/UNESCO/CTD_NOAA_Layers/MapServer/" + value_param);
+        var queryTask = new esri.tasks.QueryTask("http://barreto.md.ieo.es/arcgis/rest/services/UNESCO/CTD_NOAA_Layers/MapServer/" + PropiedadesMapa.value_param);
         var queryParams = new esri.tasks.Query();
-        queryParams.outSpatialReference = map.spatialReference;
+        queryParams.outSpatialReference = PropiedadesMapa.map.spatialReference;
         queryParams.outFields = ["Year"];
-        queryParams.where = "Month = " + value_month;
+        queryParams.where = "Month = " + PropiedadesMapa.value_month;
         queryTask.execute(queryParams, showResultsYear);
     });
 }
 
 function showResultsYear(results) {
 
-    console.log(results);
     //Compruebo si el resultado está vacio, y si es así muestro un mensaje para que se vuelva a seleccionar un mes
     if (results.features.length == 0) {
         //Desabilitamos el combo años para y le sugerimos que vuelvan a elegir un mes poniendo el valor del combo mes en "Choose a month"
@@ -181,54 +180,51 @@ function showResultsYear(results) {
 function FindFeatures() {
 
     //Iniciamos pantalla inform panel
-    console.log(numeroPuntos);
-    textoCargando = "Looking for features"
-    timerID = setTimeout("fTimer()", 500);
+    PropiedadesMapa.textoCargando = "Looking for features"
+    PropiedadesMapa.timerID = setTimeout("fTimer()", 500);
 
     //Creamos las vabiables con los valores de capa, parámetro, año y mes seleccionado por el usuario
     var layerSelect = dojo.byId("Layer_find");
-    value_layer = layerSelect.options[layerSelect.selectedIndex].value;
+    PropiedadesMapa.value_layer = layerSelect.options[layerSelect.selectedIndex].value;
     var paramSelect = dojo.byId("Parameter_find");
-    value_param = paramSelect.options[paramSelect.selectedIndex].value;
-    value_year = dojo.byId("Year_find").value
+    PropiedadesMapa.value_param = paramSelect.options[paramSelect.selectedIndex].value;
+    PropiedadesMapa.value_year = dojo.byId("Year_find").value
     var monthSelect = dojo.byId("Month_find");
-    value_month = monthSelect.options[monthSelect.selectedIndex].value;
+    PropiedadesMapa.value_month = monthSelect.options[monthSelect.selectedIndex].value;
 
     //Dependiendo del valor de capa seleccionado por el usuario usaremos diferentes servicios de mapas para hacer una query, en cada
     //clausla if generamos los parámetros adecuados para hacer la query y la ejecutamos. La función que maneja el evento de la query
     //cuando se ejecuta correctamente es la función showResults
-    if (value_layer == "CTD") {
-        var queryTask = new esri.tasks.QueryTask("http://barreto.md.ieo.es/arcgis/rest/services/UNESCO/CTD_NOAA_Layers/MapServer/" + value_param);
+    if (PropiedadesMapa.value_layer == "CTD") {
+        var queryTask = new esri.tasks.QueryTask("http://barreto.md.ieo.es/arcgis/rest/services/UNESCO/CTD_NOAA_Layers/MapServer/" + PropiedadesMapa.value_param);
         var queryParams = new esri.tasks.Query();
-        queryParams.outSpatialReference = map.spatialReference;
+        queryParams.outSpatialReference = PropiedadesMapa.map.spatialReference;
         queryParams.returnGeometry = true;
         queryParams.outFields = ["*"];
-        queryParams.where = "Year = " + value_year + "AND Month = " + value_month;
+        queryParams.where = "Year = " + PropiedadesMapa.value_year + "AND Month = " + PropiedadesMapa.value_month;
 
         queryTask.execute(queryParams, showResults);
     }
 
-    else if (value_layer == "DRB") {
-        var queryTask = new esri.tasks.QueryTask("http://barreto.md.ieo.es/arcgis/rest/services/UNESCO/DRB_NOAA_Layers/MapServer/" + value_param);
+    else if (PropiedadesMapa.value_layer == "DRB") {
+        var queryTask = new esri.tasks.QueryTask("http://barreto.md.ieo.es/arcgis/rest/services/UNESCO/DRB_NOAA_Layers/MapServer/" + PropiedadesMapa.value_param);
         var queryParams = new esri.tasks.Query();
-        queryParams.outSpatialReference = map.spatialReference;
+        queryParams.outSpatialReference = PropiedadesMapa.map.spatialReference;
         queryParams.returnGeometry = true;
         queryParams.outFields = ["*"];
-        queryParams.where = "Year = " + value_year + "AND Month = " + value_month;
+        queryParams.where = "Year = " + PropiedadesMapa.value_year + "AND Month = " + PropiedadesMapa.value_month;
 
         queryTask.execute(queryParams, showResults);
 
     }
 
-    else if (value_layer == "GLD") {
-        console.log(value_year, value_month);
-        var queryTask = new esri.tasks.QueryTask("http://barreto.md.ieo.es/arcgis/rest/services/UNESCO/GLD_NOAA_Layers/MapServer/" + value_param);
-        console.log(queryTask);
+    else if (PropiedadesMapa.value_layer == "GLD") {
+        var queryTask = new esri.tasks.QueryTask("http://barreto.md.ieo.es/arcgis/rest/services/UNESCO/GLD_NOAA_Layers/MapServer/" + PropiedadesMapa.value_param);
         var queryParams = new esri.tasks.Query();
-        queryParams.outSpatialReference = map.spatialReference;
+        queryParams.outSpatialReference = PropiedadesMapa.map.spatialReference;
         queryParams.returnGeometry = true;
         queryParams.outFields = ["*"];
-        queryParams.where = "Year = " + value_year + "AND Month = " + value_month;
+        queryParams.where = "Year = " + PropiedadesMapa.value_year + "AND Month = " + PropiedadesMapa.value_month;
 
         queryTask.execute(queryParams, showResults);
     }
@@ -249,7 +245,6 @@ function createSymbol(path, color) {
 
 //Función que se ejecuta con el array de resultados obtenidos con la query
 function showResults(results) {
-    console.log(results);
 
     //Variable con el icono y el color que vamos a utilizar para mostrar al usuario
     //var icon = "M16,3.5c-4.142,0-7.5,3.358-7.5,7.5c0,4.143,7.5,18.121,7.5,18.121S23.5,15.143,23.5,11C23.5,6.858,20.143,3.5,16,3.5z M16,14.584c-1.979,0-3.584-1.604-3.584-3.584S14.021,7.416,16,7.416S19.584,9.021,19.584,11S17.979,14.584,16,14.584z";
@@ -259,7 +254,7 @@ function showResults(results) {
     //pointSymbol = createSymbol(icon, iconColor);
         
     var e = dojo.byId("Layer_find");
-    var value_layer = e.options[e.selectedIndex].value;
+    PropiedadesMapa.value_layer = e.options[e.selectedIndex].value;
     var pointSymbol;
     var pointSymbol_CTD = new esri.symbol.PictureMarkerSymbol({
         "angle": 0,
@@ -294,15 +289,15 @@ function showResults(results) {
         "height": 24
     });
 
-    if (value_layer == "CTD") {
+    if (PropiedadesMapa.value_layer == "CTD") {
         pointSymbol = pointSymbol_CTD;
     }
 
-    else if (value_layer == "DRB") {
+    else if (PropiedadesMapa.value_layer == "DRB") {
         pointSymbol = pointSymbol_DRB;
     }
 
-    else if (value_layer == "GLD") {
+    else if (PropiedadesMapa.value_layer == "GLD") {
         pointSymbol = pointSymbol_GLD;
     }
 
@@ -335,12 +330,11 @@ function showResults(results) {
         var geometria = myfeature.geometry;
         var atributos = myfeature.attributes;
         if (myfeature.attributes.Month == dojo.byId("Month_find").value) {
-            console.log(myfeature.attributes.Month);
             var miPos = {
                 "geometry": geometria,
                 "attributes": atributos,
                 "infoTemplate": {
-                    "title": value_layer,
+                    "title": PropiedadesMapa.value_layer,
                     "content": mycontent
 
                 }
@@ -349,10 +343,9 @@ function showResults(results) {
             var gra = new esri.Graphic(miPos);
             //Añado el nuevo gráfico a mi capa gráfica con el simbolo.
             //map.graphics.add(gra.setSymbol(pointSymbol));
-            mygraphiclayer.add(gra.setSymbol(pointSymbol));
+            PropiedadesMapa.mygraphiclayer.add(gra.setSymbol(pointSymbol));
         }
     });
-    console.log(mygraphiclayer);
 
     //#region Código para hacer zoom al resultado de la consulta
     var features = results.features;
@@ -367,23 +360,22 @@ function showResults(results) {
 
     if (extent) {
         // assumes the esri map object is stored in the globally-scoped variable 'map'
-        map.setExtent(extent)
+        PropiedadesMapa.map.setExtent(extent)
     }
 
     ocultainformpanel();
 
-    //#endregion
-//    mygraphiclayer = new esri.layers.GraphicsLayer();
-//    mygraphiclayer = map.graphics;
-//    map.addLayer(mygraphiclayer);
-//    legendLayers.push({ layer: mygraphiclayer, title: "prueba" });
+//#endregion
+//    PropiedadesMapa.mygraphiclayer = new esri.layers.GraphicsLayer();
+//    PropiedadesMapa.mygraphiclayer = map.graphics;
+//    map.addLayer(PropiedadesMapa.mygraphiclayer);
+//    legendLayers.push({ layer: PropiedadesMapa.mygraphiclayer, title: "prueba" });
 
-//    legend.refresh();
-//    console.log(legend);
+//    PropiedadesMapa.legend.refresh();
 }
 
 //Función que se ejecuta al presionar el botón clear. Limpiamos la capa gráfica.
 function ClearFeatures() {
     //map.graphics.clear();
-    mygraphiclayer.clear();
+    PropiedadesMapa.mygraphiclayer.clear();
 }

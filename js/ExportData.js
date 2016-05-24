@@ -17,22 +17,23 @@ function ExportData() {
 
     //Importamos recursos de dojo
     require([
+        "esri/tasks/Geoprocessor",
         "dojo/dom",
         "dojo/dom-style"
-    ], function (dom, domStyle) {
+    ], function (Geoprocessor, dom, domStyle) {
 
         // Keep a reference to the loading icon DOM node.
         var loading = dom.byId("informpanel");
 
         //Iniciamos el servicio de geoprocesamiento para exportar los datos
-        gp = new esri.tasks.Geoprocessor("http://barreto.md.ieo.es/arcgis/rest/services/UNESCO/ExtractDataTask/GPServer/ExtractDataTask");
+        gp = new Geoprocessor("http://barreto.md.ieo.es/arcgis/rest/services/UNESCO/ExtractDataTask/GPServer/ExtractDataTask");
         gp.setOutSpatialReference({ wkid: 4326 });
 
         //Almacenamos en un FeatureSet los gráficos de la capa gráfica del mapa que tiene las entidades que interesan al usuario
         var featureSet = new esri.tasks.FeatureSet();
         var features = [];
-        for (var i = 1; i < mygraphiclayer.graphics.length; i++) {
-            features.push(mygraphiclayer.graphics[i]);
+        for (var i = 1; i < PropiedadesMapa.mygraphiclayer.graphics.length; i++) {
+            features.push(PropiedadesMapa.mygraphiclayer.graphics[i]);
         }
         //features.push(map.graphics.graphics[0]);
         featureSet.features = features;

@@ -36,26 +36,26 @@ require([
           //#region Map and Layers
 
           //Variable con la extensión inicial del mapa 
-          startExtent = new Extent(-40, -3, -4, 36, new esri.SpatialReference({ wkid: 4326 }));
+          PropiedadesMapa.startExtent = new Extent(-40, -3, -4, 36, new esri.SpatialReference({ wkid: 4326 }));
 
-          map = new Map("map", {
-              extent: startExtent,
+          PropiedadesMapa.map = new Map("map", {
+              extent: PropiedadesMapa.startExtent,
               center: [-16.4, 23.8],
               basemap: "oceans",
               logo: false
           });
 
-          bioLayer = new FeatureLayer("http://barreto.md.ieo.es/arcgis/rest/services/UNESCO/Prueba_Biological_Index/MapServer/0", {
+          PropiedadesMapa.bioLayer = new FeatureLayer("http://barreto.md.ieo.es/arcgis/rest/services/UNESCO/Prueba_Biological_Index/MapServer/0", {
               outFields: ["Trofic_Index", "Biomass", "Richness", "Abundance"]
           });
 
           //#endregion
 
           //#region Show Coordinates
-          map.on("load", function () {
+          PropiedadesMapa.map.on("load", function () {
               //after map loads, connect to listen to mouse move & drag events
-              map.on("mouse-move", showCoordinates);
-              map.on("mouse-drag", showCoordinates);
+              PropiedadesMapa.map.on("mouse-move", showCoordinates);
+              PropiedadesMapa.map.on("mouse-drag", showCoordinates);
           });
 
           function showCoordinates(evt) {
@@ -93,9 +93,9 @@ require([
 
       //#region Chart
       function drawpolygon() {
-          tb = new esri.toolbars.Draw(map);
-          tb.on("draw-end", DrawResults);
-          tb.activate(esri.toolbars.Draw.POLYGON);
+          PropiedadesMapa.tb = new esri.toolbars.Draw(PropiedadesMapa.map);
+          PropiedadesMapa.tb.on("draw-end", DrawResults);
+          PropiedadesMapa.tb.activate(esri.toolbars.Draw.POLYGON);
       }
 
       function DrawResults(evt) {
@@ -107,9 +107,9 @@ require([
           ],
             function (Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
 
-              timerID = setTimeout("fTimer()", 500);
+                PropiedadesMapa.timerID = setTimeout("fTimer()", 500);
 
-              tb.deactivate();
+                PropiedadesMapa.tb.deactivate();
 
               if (dojo.byId("buttondraw").style.display == "block") {
                   dojo.byId("buttondraw").style.display = "none";
@@ -130,15 +130,15 @@ require([
                 new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 255]), 2),
                 new Color([0, 0, 255, 0.5]));
 
-              graphicarea = new Graphic(geometry, symbol);
-              map.graphics.add(graphicarea);
+              PropiedadesMapa.graphicarea = new Graphic(geometry, symbol);
+              PropiedadesMapa.map.graphics.add(PropiedadesMapa.graphicarea);
 
 
               //#region Query
               var myquery = new esri.tasks.Query();
               myquery.geometry = geometry;
 
-              bioLayer.queryFeatures(myquery, selectInDraw);
+              PropiedadesMapa.bioLayer.queryFeatures(myquery, selectInDraw);
 
               //#endregion
           });
@@ -236,7 +236,7 @@ require([
 
           mychart = null;
 
-          map.graphics.remove(graphicarea);
+          PropiedadesMapa.map.graphics.remove(PropiedadesMapa.graphicarea);
 
       }
 
@@ -285,9 +285,9 @@ require([
       }
 
       function drawprofile() {
-          tb = new esri.toolbars.Draw(map);
-          tb.on("draw-end", DrawResults2);
-          tb.activate(esri.toolbars.Draw.POLYLINE);
+          PropiedadesMapa.tb = new esri.toolbars.Draw(PropiedadesMapa.map);
+          PropiedadesMapa.tb.on("draw-end", DrawResults2);
+          PropiedadesMapa.tb.activate(esri.toolbars.Draw.POLYLINE);
       }
 
 
@@ -303,9 +303,9 @@ require([
           ],
             function (Color, Graphic, SimpleLineSymbol, Geoprocessor, geodesicUtils, Units, FeatureSet) {
 
-                timerID = setTimeout("fTimer()", 500);
+                PropiedadesMapa.timerID = setTimeout("fTimer()", 500);
 
-                tb.deactivate();
+                PropiedadesMapa.tb.deactivate();
                 //Cierro el panel de profile
                 if (dojo.byId("PanelProfile").style.display == "block") {
                     dojo.byId("PanelProfile").style.display = "none";
@@ -331,15 +331,15 @@ require([
                 var geometry = evt.geometry;
                 var symbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 255]), 2);
 
-                graphicline = new Graphic(geometry, symbol);
-                map.graphics.add(graphicline);
+                PropiedadesMapa.graphicline = new Graphic(geometry, symbol);
+                PropiedadesMapa.map.graphics.add(PropiedadesMapa.graphicline);
 
                 //Instanciamos el objeto de geoprocesamiento
                 gp = new Geoprocessor("http://barreto.md.ieo.es/arcgis/rest/services/UNESCO/StackProfile/GPServer/Stack%20Profile");
 
                 //Creamos los parámetros para añadirlos al servicio de geoprocesamiento
                 var features = [];
-                features.push(graphicline);
+                features.push(PropiedadesMapa.graphicline);
                 var featureSet = new FeatureSet();
                 featureSet.features = features;
 
@@ -406,16 +406,16 @@ require([
 
             mychart2 = null;
 
-            map.graphics.remove(graphicline);
+            PropiedadesMapa.map.graphics.remove(PropiedadesMapa.graphicline);
         }
         //#endregion
 
       //#region Time Serie
         function drawTimeSeries() {
             console.log("hola");
-            tb = new esri.toolbars.Draw(map);
-            tb.on("draw-end", DrawResults3);
-            tb.activate(esri.toolbars.Draw.POINT);
+            PropiedadesMapa.tb = new esri.toolbars.Draw(PropiedadesMapa.map);
+            PropiedadesMapa.tb.on("draw-end", DrawResults3);
+            PropiedadesMapa.tb.activate(esri.toolbars.Draw.POINT);
         }
 
 
@@ -428,9 +428,9 @@ require([
           ],
             function (Color, Graphic, SimpleLineSymbol, SimpleMarkerSymbol) {
 
-                timerID = setTimeout("fTimer()", 500);
+                PropiedadesMapa.timerID = setTimeout("fTimer()", 500);
                 
-                tb.deactivate();
+                PropiedadesMapa.tb.deactivate();
 
                 if (dojo.byId("buttonTimeSerie").style.display == "block") {
                     dojo.byId("buttonTimeSerie").style.display = "none";
@@ -456,8 +456,8 @@ require([
                   new Color([0, 0, 255, 0.5])
                 );
 
-                graphicpoint = new Graphic(geometry, symbol);
-                map.graphics.add(graphicpoint);
+                PropiedadesMapa.graphicpoint = new Graphic(geometry, symbol);
+                PropiedadesMapa.map.graphics.add(PropiedadesMapa.graphicpoint);
 
                 showTimeSeries(geometry);
 
@@ -482,7 +482,7 @@ require([
 
             mychart3 = null;
 
-            map.graphics.remove(graphicpoint);
+            PropiedadesMapa.map.graphics.remove(PropiedadesMapa.graphicpoint);
         }
         //#endregion
 

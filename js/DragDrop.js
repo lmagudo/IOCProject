@@ -1,4 +1,16 @@
-﻿require([
+﻿function ShowDragDropPanel() {    
+    if (dojo.byId("DragDropPanel").style.display == "none") {
+        Popup('PopupDragDrop');
+        dojo.byId("DragDropPanel").style.display = "block";
+    }
+
+    else {
+        dojo.byId("DragDropPanel").style.display = "none";
+    }
+}
+
+
+require([
   "esri/config",
   "esri/domUtils",
   "esri/graphic",
@@ -179,9 +191,9 @@
                   var symbol = new PictureMarkerSymbol(reader.result,
                     width > 64 ? 64 : width,
                     height > 64 ? 64 : height);
-                  var point = map.toMap(new Point(x, y));
+                  var point = PropiedadesMapa.map.toMap(new Point(x, y));
                   var graphic = new Graphic(point, symbol);
-                  map.graphics.add(graphic);
+                  PropiedadesMapa.map.graphics.add(graphic);
               };
 
               img.src = reader.result;
@@ -198,7 +210,7 @@
           var layer = new ArcGISDynamicMapServiceLayer(url, {
               opacity: 0.75
           });
-          map.addLayer(layer);
+          PropiedadesMapa.map.addLayer(layer);
       }
 
       function handleFeatureLayer(url) {
@@ -208,7 +220,7 @@
               mode: FeatureLayer.MODE_ONDEMAND,
               infoTemplate: new InfoTemplate(null, "${*}")
           });
-          map.addLayer(layer);
+          PropiedadesMapa.map.addLayer(layer);
       }
 
       function handleImageService(url) {
@@ -216,7 +228,7 @@
           var layer = new ArcGISImageServiceLayer(url, {
               opacity: 0.75
           });
-          map.addLayer(layer);
+          PropiedadesMapa.map.addLayer(layer);
       }
 
       function handleCSV(file) {
@@ -310,7 +322,7 @@
                       id: 'csvLayer'
                   });
                   featureLayer.__popupInfo = popupInfo;
-                  map.addLayer(featureLayer);
+                  PropiedadesMapa.map.addLayer(featureLayer);
                   zoomToData(featureLayer);
               },
               onError: function (error) {
@@ -474,12 +486,14 @@
       }
 
       function clearAll() {
-          map.graphics.clear();
-          var layerIds = map.graphicsLayerIds.slice(0);
-          layerIds = layerIds.concat(map.layerIds.slice(1));
+          PropiedadesMapa.map.graphics.clear();
+          //var layerIds = PropiedadesMapa.map.graphicsLayerIds.slice(0);
+          //layerIds = layerIds.concat(PropiedadesMapa.map.layerIds.slice(1));
 
-          arrayUtils.forEach(layerIds, function (layerId) {
-              map.removeLayer(map.getLayer(layerId));
+          arrayUtils.forEach(PropiedadesMapa.LayersToClear, function (layerId) {
+              //console.log(PropiedadesMapa.map.getLayer(layerId));
+              (PropiedadesMapa.map.getLayer(layerId)) ? PropiedadesMapa.map.removeLayer(PropiedadesMapa.map.getLayer(layerId)) : "";
+              //PropiedadesMapa.map.removeLayer(PropiedadesMapa.map.getLayer(layerId));
           });
       }
 
@@ -499,7 +513,7 @@
 
       function zoomToData(featureLayer) {
           // Zoom to the collective extent of the data
-          var multipoint = new Multipoint(map.spatialReference);
+          var multipoint = new Multipoint(PropiedadesMapa.map.spatialReference);
           arrayUtils.forEach(featureLayer.graphics, function (graphic) {
               var geometry = graphic.geometry;
               if (geometry) {
@@ -511,7 +525,7 @@
           });
 
           if (multipoint.points.length > 0) {
-              map.setExtent(multipoint.getExtent().expand(1.25), true);
+              PropiedadesMapa.map.setExtent(multipoint.getExtent().expand(1.25), true);
           }
       }
 

@@ -49,9 +49,9 @@ function CreateBuffer() {
         "esri/symbols/SimpleMarkerSymbol",
         "esri/symbols/SimpleFillSymbol"
     ], function (array, geometryEngine, Draw, Color, Graphic, SimpleLineSymbol, SimpleMarkerSymbol, SimpleFillSymbol) {
-        var tb = new Draw(map);
-        tb.on("draw-end", DrawResults);
-        tb.activate(Draw.POINT);
+        PropiedadesMapa.tb = new Draw(PropiedadesMapa.map);
+        PropiedadesMapa.tb.on("draw-end", DrawResults);
+        PropiedadesMapa.tb.activate(Draw.POINT);
 
         function DrawResults(evt) {
             // add the drawn graphic to the map
@@ -69,7 +69,7 @@ function CreateBuffer() {
             );
 
             var graphicpoint = new Graphic(geometry, symbol);
-            map.graphics.add(graphicpoint);
+            PropiedadesMapa.map.graphics.add(graphicpoint);
 
             var e = dojo.byId("GeodesicMethod");
             var f = dojo.byId("Unit");
@@ -91,11 +91,11 @@ function CreateBuffer() {
             var symbol2 = new SimpleFillSymbol();
             symbol2.setColor(new Color([100, 100, 100, 0.25]));
             symbol2.setOutline(null);
-            map.graphics.add(new Graphic(bufferedGeometries, symbol2));
+            PropiedadesMapa.map.graphics.add(new Graphic(bufferedGeometries, symbol2));
             array.forEach(bufferedGeometries, function (buffergeometry) {
-                console.log(buffergeometry);
-                map.graphics.add(new Graphic(buffergeometry, symbol2));
+                PropiedadesMapa.map.graphics.add(new Graphic(buffergeometry, symbol2));
             });
+            PropiedadesMapa.tb.deactivate()
         }
 
     });

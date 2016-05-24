@@ -10,54 +10,18 @@
 
     <title>IOC - IEO Project</title>
 
-    <!-- Bootstrap core CSS -->
+    <!-- Bootstrap jQuery core CSS -->
+    <link href="bower_components/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" />
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <!--<link href="bower_components/lobipanel/css/lobipanel.css" rel="stylesheet" />-->
+    
 
     <!-- Custom styles for this template -->
     <link href="css/justified-nav.css" rel="stylesheet" type="text/css" />
 
     <!-- Estilos map-->
     <link href="css/map.css" rel="stylesheet">
-
-    <style>
-    #BasemapToggle {
-      position: absolute;
-      top: 170px;
-      left: 20px;
-      z-index: 50;
-    }
-    
-    #IrArriba {
-        position: fixed;
-        bottom: 30px; /* Distancia desde abajo */
-        right: 30px; /* Distancia desde la derecha */
-    }
-
-    #IrArriba span {
-        width: 60px; /* Ancho del bot�n */
-        height: 60px; /* Alto del bot�n */
-        display: block;
-        background: url(Images/flecha_arriba.PNG) no-repeat center center;
-    }
-    
-    .centrar
-	{
-		position: absolute;
-		/*nos posicionamos en el centro del navegador*/
-		top:50%;
-		left:50%;
-		/*determinamos una anchura*/
-		width:400px;
-		/*indicamos que el margen izquierdo, es la mitad de la anchura*/
-		margin-left:-200px;
-		/*determinamos una altura*/
-		height:300px;
-		/*indicamos que el margen superior, es la mitad de la altura*/
-		margin-top:-150px;
-		padding:5px;
-	}
-  </style>
 
     <!-- Esri styles-->
     <link rel="stylesheet" href="http://js.arcgis.com/3.8/js/dojo/dijit/themes/claro/claro.css">
@@ -67,18 +31,6 @@
     <link rel="stylesheet" type='text/css' href='http://serverapi.arcgisonline.com/jsapi/arcgis/2.4/js/esri/dijit/css/Popup.css'/>
     <link rel="stylesheet" type='text/css' href='http://serverapi.arcgisonline.com/jsapi/arcgis/2.4/js/esri/dijit/css/PopupMobile.css'/>
 
-    <!--<script src="http://js.arcgis.com/3.13/"></script>
-
-    <script type="text/javascript" src="js/Variables_globales.js"></script>
-    <script src="js/Informpanel.js" type="text/javascript"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="js/Query.js"></script>
-    <script type="text/javascript" src="js/GeodesicTools.js"></script>
-    <script type="text/javascript" src="js/ExportData.js"></script>
-    <script type="text/javascript" src="js/DragDrop.js"></script>-->
-
-    <!-- Asistente de c�digo API Javascripot 3.8 para VS2010-->
-    <!--script type="text/javascript" src="js/jsapi_vsdoc10_v38.js"></script-->
     
     <!-- Script seguimiento Google Analytics-->
     <script>
@@ -157,7 +109,9 @@
 
         <button type="button" class="btn btn-sm btn-primary btn-navegacion" title="Geodesic Tools" onclick="ShowGeodesicPanel()" style="position:absolute; left:270px; top:1px; z-Index:999; display:block">Geodesic Tools</button>
 
-        <button type="button" class="btn btn-sm btn-primary btn-navegacion" title="Clear" id="clearButton" style="position:absolute; left:390px; top:1px; z-Index:999; display:block">Clear</button>
+        <button type="button" class="btn btn-sm btn-primary btn-navegacion" title="Drag Drop" onclick="ShowDragDropPanel()" style="position:absolute; left:390px; top:1px; z-Index:999; display:block">Drag & Drop</button>
+
+        <!--<button type="button" class="btn btn-sm btn-primary btn-navegacion" title="Clear" id="clearButton" style="position:absolute; left:500px; top:1px; z-Index:999; display:block">Clear</button>-->
         
         <!-- that will be used for the print dijit -->
         <div id="print_button"></div>
@@ -208,9 +162,10 @@
 </div>      
 
       <!-- Find Panel -->
-      <div class="panel panel-primary" id="PanelFind" style="position:absolute; right:30px; top:150px; z-Index:999; display:none">
+      <div class="draggablePanel panel panel-primary" id="PanelFind" style="position:absolute; right:30px; top:150px; z-Index:999; display:none">
         <div class="panel-heading">
             <h3 class="panel-title">Find Features</h3>
+            <span class="pull-right clickable" data-effect="hide"><i class="fa fa-times">x</i></span>
         </div>
         <div class="panel-body">
             <label>Layer</label>
@@ -259,62 +214,77 @@
       </div>
 
       <!-- Buffer Panel -->
-     <div class="panel panel-primary" id="Geodesic_Panel" style="position:absolute; right:30px; top:150px; z-Index:999; display:none">
-        <div class="panel-heading">
-            <h3 class="panel-title">Geodesic Tools</h3>
-        </div>
-        <div class="panel-body">
-            <label>Buffer Method</label>
-            <br/>
-            <select class="combobox-container" placeholder="Choose a method" required autofocus id="GeodesicMethod" onchange="Option_selected()" >
-                <option value="">Choose a Method</option>
-                <option value="Euclidean">Euclidean</option>
-                <option value="Geodesic">Geodesic</option>
-            </select>
-            <br>
-            <label>Unit</label>
-            <br/>
-            <select class="combobox-container" placeholder="Choose a Unit of measure" required autofocus id="Unit" onchange="Option_selected()" >
-                <option value="">Choose a Unit of measure</option>
-                <option value="9001">Meters</option>
-                <option value="9036">Kilometers</option>
-                <option value="9035">Miles</option>
-                <option value="9030">Nautical Miles</option>
-            </select>
-            <br>
-            <label>Distance</label>
-            <br/>
-            <input type="text" id="Distance" placeholder="Type a distance" onkeyup="checkInput(this)" required value="" />
-            <br/>
-            <H1 align="center">
-                <button id="CreateBuffer" type="button" class="btn btn-sm btn-primary btn-navegacion" disabled="disabled" onclick="CreateBuffer()">Create Buffer</button>
-            </H1>
-            <H1 align="center">
-                <button type="button" class="btn btn-sm btn-primary btn-navegacion" disabled="disabled" onclick="OpenExportPanel()">Export Result</button>
-            </H1>
-        </div>
-      </div>
+          <div class="draggablePanel panel panel-primary" id="Geodesic_Panel" style="position:absolute; right:30px; top:150px; z-Index:999; display:none">
+              <div class="panel-heading">
+                  <h3 class="panel-title">Geodesic Tools</h3>
+                  <span class="pull-right clickable" data-effect="hide"><i class="fa fa-times">x</i></span>
+              </div>
+              <div class="panel-body">
+                  <label>Buffer Method</label>
+                  <br />
+                  <select class="combobox-container" placeholder="Choose a method" required autofocus id="GeodesicMethod" onchange="Option_selected()">
+                      <option value="">Choose a Method</option>
+                      <option value="Euclidean">Euclidean</option>
+                      <option value="Geodesic">Geodesic</option>
+                  </select>
+                  <br>
+                  <label>Unit</label>
+                  <br />
+                  <select class="combobox-container" placeholder="Choose a Unit of measure" required autofocus id="Unit" onchange="Option_selected()">
+                      <option value="">Choose a Unit of measure</option>
+                      <option value="9001">Meters</option>
+                      <option value="9036">Kilometers</option>
+                      <option value="9035">Miles</option>
+                      <option value="9030">Nautical Miles</option>
+                  </select>
+                  <br>
+                  <label>Distance</label>
+                  <br />
+                  <input type="text" id="Distance" placeholder="Type a distance" onkeyup="checkInput(this)" required value="" />
+                  <br />
+                  <h1 align="center">
+                      <button id="CreateBuffer" type="button" class="btn btn-sm btn-primary btn-navegacion" disabled="disabled" onclick="CreateBuffer()">Create Buffer</button>
+                  </h1>
+                  <h1 align="center">
+                      <button type="button" class="btn btn-sm btn-primary btn-navegacion" disabled="disabled" onclick="OpenExportPanel()">Export Result</button>
+                  </h1>
+              </div>
+          </div>
 
       <!-- Export Panel -->
-      <div class="panel panel-primary" id="ExportPanel" style="position:absolute; right:300px; top:150px; z-Index:999; display:none">
-        <div class="panel-heading">
-            <h3 class="panel-title">Export Features</h3>
-        </div>
-        <div class="panel-body">
-            <label>Select Format</label>
-            <br/><select class="combobox-container" placeholder="Choose a format" required autofocus id="formatBox">
-                <option selected="selected">Shapefile - SHP - .shp</option>
-                <option>File Geodatabase - GDB - .gdb</option>
-                <option>Autodesk AutoCAD - DXF_R2007 - .dxf</option>
-                <option>Autodesk AutoCAD - DWG_R2007 - .dwg</option>
-                <option>Bentley Microstation Design (V8) - DGN_V8 - .dgn</option>
-            </select>
-            <br/>
-            <H1 align="center">
-                <button type="button" class="btn btn-sm btn-primary btn-navegacion" onclick="ExportData()">OK</button>                
-            </H1>
-        </div>
-      </div>
+          <div class="draggablePanel panel panel-primary" id="ExportPanel" style="position:absolute; right:300px; top:150px; z-Index:999; display:none">
+              <div class="panel-heading">
+                  <h3 class="panel-title">Export Features</h3>
+                  <span class="pull-right clickable" data-effect="hide"><i class="fa fa-times">x</i></span>
+              </div>
+              <div class="panel-body">
+                  <label>Select Format</label>
+                  <br /><select class="combobox-container" placeholder="Choose a format" required autofocus id="formatBox">
+                      <option selected="selected">Shapefile - SHP - .shp</option>
+                      <option>File Geodatabase - GDB - .gdb</option>
+                      <option>Autodesk AutoCAD - DXF_R2007 - .dxf</option>
+                      <option>Autodesk AutoCAD - DWG_R2007 - .dwg</option>
+                      <option>Bentley Microstation Design (V8) - DGN_V8 - .dgn</option>
+                  </select>
+                  <br />
+                  <h1 align="center">
+                      <button type="button" class="btn btn-sm btn-primary btn-navegacion" onclick="ExportData()">OK</button>
+                  </h1>
+              </div>
+          </div>
+
+          <!-- Drag & Drop Panel -->
+          <div class="draggablePanel panel panel-primary" id="DragDropPanel" style="width:200px; position:absolute; right:300px; top:150px; z-Index:999; display:none">
+              <div class="panel-heading">
+                  <h3 class="panel-title">Drag & Drop</h3>
+                  <span class="pull-right clickable" data-effect="hide"><i class="fa fa-times">x</i></span>
+              </div>
+              <div class="panel-body">                  
+                  <h1 align="center">
+                      <button id="clearButton" type="button" class="btn btn-sm btn-primary btn-navegacion">Clear</button>
+                  </h1>
+              </div>
+          </div>
 
       <!-- InformPanel -->
       <div class="well" id="informpanel"
@@ -371,10 +341,10 @@
     <!-- /Popups -->
     <div class="centrar" id="PopupProject" style="display:none">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="draggablePanel modal-content">
                 <div class="modal-header">
                     <button class="close" data-dismiss="modal" type="button" onclick="Popup('PopupProject')">
-                    <span aria-hidden="true">x</span>
+                        <span aria-hidden="true">x</span>
                     </button>
                     <h4 id="myLargeModalLabel" class="modal-title">The project</h4>
                 </div>
@@ -390,10 +360,10 @@
 
      <div class="centrar" id="PopupContacto" style="display:none">
         <div class="modal-dialog modal-lg" >
-            <div class="modal-content">
+            <div class="draggablePanel modal-content">
                 <div class="modal-header">
                     <button class="close" data-dismiss="modal" type="button" onclick="Popup('PopupContacto')">
-                    <span aria-hidden="true">x</span>
+                        <span aria-hidden="true">x</span>
                     </button>
                     <h4 id="H1" class="modal-title">Contact</h4>
                 </div>
@@ -418,16 +388,35 @@
         </div>
      </div>
 
+      <div class="centrar" id="PopupDragDrop" style="display:none">
+          <div class="modal-dialog modal-lg">
+              <div class="draggablePanel modal-content">
+                  <div class="modal-header">
+                      <button class="close" data-dismiss="modal" type="button" onclick="Popup('PopupDragDrop')">
+                          <span aria-hidden="true">x</span>
+                      </button>
+                      <h4 id="myLargeModalLabel" class="modal-title">Drag & Drop Facility</h4>
+                  </div>
+                  <div class="modal-body">
+                      <p>Is experimental and may not work on all browsers. Visit caniuse.com to determine if the drag/drop and file access capabilities used in this sample are available for your browser.</p>
+                      <p>This tool uses several HTML5 technologies to access files from disk, read them then drag and drop them onto the map control for display. To test the sample drag an image or a csv file with latitude/longitude fields from windows explorer to the map. Note that images are rendered on the map as picture marker symbols and csv files with valid latitude/longitude fields are displayed as a graphics layer. You can also drag/drop map and feature services onto the map for display.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <!--<script src="https://code.jquery.com/jquery.js"></script>-->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
     <script src="js/jquery.PrintArea.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js"></script>
 
-    <script src="http://js.arcgis.com/3.13/"></script>
 
+    <script src="http://js.arcgis.com/3.13/"></script>
     <script type="text/javascript" src="js/Variables_globales.js"></script>
     <script src="js/Informpanel.js" type="text/javascript"></script>
     <script type="text/javascript" src="js/main.js"></script>
@@ -435,6 +424,9 @@
     <script type="text/javascript" src="js/GeodesicTools.js"></script>
     <script type="text/javascript" src="js/ExportData.js"></script>
     <script type="text/javascript" src="js/DragDrop.js"></script>
+
+    <!--<script src="bower_components/lobipanel/dist/js/lobipanel.min.js"></script>-->
+    <script src="js/Panels.js"></script>
     
     <!-- Carga inform panel al cargarse la p�gina -->
     <script language="javascript">
@@ -445,29 +437,40 @@
         <a href='#Arriba'><span/></a>
     </div>
     <script type='text/javascript'>
-    //<![CDATA[
-        // Bot�n para Ir Arriba
-        jQuery.noConflict();
-        jQuery(document).ready(function () {
-            jQuery("#IrArriba").hide();
-            jQuery(function () {
-                jQuery(window).scroll(function () {
-                    if (jQuery(this).scrollTop() > 200) {
-                        jQuery('#IrArriba').fadeIn();
-                    } else {
-                        jQuery('#IrArriba').fadeOut();
-                    }
-                });
-                jQuery('#IrArriba a').click(function () {
-                    jQuery('body,html').animate({
-                        scrollTop: 0
-                    }, 800);
-                    return false;
-                });
-            });
+        (function ($) {
 
-        });
-    //]]>
+            $('.clickable').on('click', function () {
+                var effect = $(this).data('effect');
+                $(this).closest('.panel')[effect]();
+            })
+
+
+            //<![CDATA[
+            // Bot�n para Ir Arriba
+            $.noConflict();
+            $(document).ready(function () {
+                $("#IrArriba").find('span').css('background-image', 'url("Images/flecha_arriba.PNG")');
+                $("#IrArriba").hide();
+                $(function () {
+                    $(window).scroll(function () {
+                        if ($(this).scrollTop() > 200) {
+                            $('#IrArriba').fadeIn();
+                        } else {
+                            $('#IrArriba').fadeOut();
+                        }
+                    });
+                    $('#IrArriba a').click(function () {
+                        $('body,html').animate({
+                            scrollTop: 0
+                        }, 800);
+                        return false;
+                    });
+                });
+
+            });
+            //]]>
+        })(jQuery);
+    
     </script>
   </body>
 </html>

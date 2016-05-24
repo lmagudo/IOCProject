@@ -70,7 +70,7 @@ function LRSLocatePointOnSegment(point1, point2, position) {
         y2 = point2[1];
         x = x1 + (x2 - x1) * position;
         y = y1 + (y2 - y1) * position;
-        var spatialReference = map.spatialReference;
+        var spatialReference = PropiedadesMapa.map.spatialReference;
         point = new esri.geometry.Point(x, y, spatialReference);
     }
     return point;
@@ -87,7 +87,7 @@ function DrawPoint(point) {
        "esri/symbols/SimpleMarkerSymbol"
     ],
        function (geodesicUtils, Units, Color, SimpleLineSymbol, Graphic, SimpleMarkerSymbol) {
-           map.graphics.remove(graphicX);
+           PropiedadesMapa.map.graphics.remove(graphicX);
            // CREATE LOCATION GRAPHIC //
            var red = new Color(Color.named.red);
            var outline = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, red, 3);
@@ -95,7 +95,7 @@ function DrawPoint(point) {
 
            graphicX = new Graphic(point, chartLocationSymbol);
 
-           map.graphics.add(graphicX);
+           PropiedadesMapa.map.graphics.add(graphicX);
 
            
        });

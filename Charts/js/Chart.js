@@ -132,8 +132,7 @@ function showProfile(arrayParaPerfil) {
         document.getElementById("container2").style.display = "none";
     }
 
-    console.log(graphicline.geometry);
-    var line = graphicline.geometry;
+    var line = PropiedadesMapa.graphicline.geometry;
     var arrayLocate = [];
     for (var i = 0; i < arrayParaPerfil.datos.length; i++) {
         var arraytemp = [];
@@ -305,7 +304,7 @@ function showProfile(arrayParaPerfil) {
                     },
                     events: {
                         mouseOut: function () {
-                            map.graphics.remove(graphicX);
+                            PropiedadesMapa.map.graphics.remove(graphicX);
                         }
                     }
                 }

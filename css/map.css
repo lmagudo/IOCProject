@@ -1,29 +1,83 @@
- #header {
-        background-image: url(../images/banner.jpg); background-repeat: repeat-x;
-        margin: 2px;
-        border: solid 4px #224a54;
-        color:white; font-size:18pt; 
-        text-align:left; font-weight:bold; height:70px;
+﻿ #header {
+    background-image: url(../images/banner.jpg); background-repeat: repeat-x;
+    margin: 2px;
+    border: solid 4px #224a54;
+    color:white; font-size:18pt; 
+    text-align:left; font-weight:bold; height:70px;
 }
       
  #map {
-        margin: 5px;
-        border:solid 4px #224a54;
-        -moz-border-radius: 4px;
+    margin: 5px;
+    border:solid 4px #224a54;
+    -moz-border-radius: 4px;
 }
 
 #footer {
-        margin: 2px;
-        border: solid 2px #224a54;
-        background-color:#ecefe4;color:#3f3f3f;
-       font-size:10pt; text-align:center; height:40px;
-      }
+    margin: 2px;
+    border: solid 2px #224a54;
+    background-color:#ecefe4;color:#3f3f3f;
+    font-size:10pt; text-align:center; height:40px;
+}
 
 #leftPane{
-        margin: 5px;
-        padding:2px;
-        background-color:white;
-        color:#3f3f3f;
-        border: solid 2px #224a54;
-        width:20%;
-     }
+    margin: 5px;
+    padding:2px;
+    background-color:white;
+    color:#3f3f3f;
+    border: solid 2px #224a54;
+    width:20%;
+}
+
+#BasemapToggle {
+      position: absolute;
+      top: 170px;
+      left: 20px;
+      z-index: 50;
+}
+    
+#IrArriba {
+    position: fixed;
+    bottom: 30px; /* Distancia desde abajo */
+    right: 30px; /* Distancia desde la derecha */
+
+}
+
+#IrArriba span {
+    width: 60px; /* Ancho del bot�n */
+    height: 60px; /* Alto del bot�n */
+    display: block;
+    background: url(Images/flecha_arriba.PNG) no-repeat center center;
+}
+    
+.centrar
+{
+	position: absolute;
+	/*nos posicionamos en el centro del navegador*/
+	top:50%;
+	left:50%;
+	/*determinamos una anchura*/
+	width:400px;
+	/*indicamos que el margen izquierdo, es la mitad de la anchura*/
+	margin-left:-200px;
+	/*determinamos una altura*/
+	height:300px;
+	/*indicamos que el margen superior, es la mitad de la altura*/
+	margin-top:-150px;
+	padding:5px;
+}
+
+/*Close Panels*/
+.panel-heading span
+{
+    margin-top: -26px;
+    font-size: 15px;
+    margin-right: -12px;
+}
+
+.clickable {
+    /*background: rgba(0, 0, 0, 0.15);*/
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}

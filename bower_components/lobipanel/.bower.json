@@ -1,0 +1,15 @@
+{
+  "name": "lobipanel",
+  "homepage": "https://github.com/arboshiki/lobipanel",
+  "version": "0.3.1",
+  "_release": "0.3.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.3.1",
+    "commit": "fe792f4e5d5eacb86c5de916d39b0dceee4b6dab"
+  },
+  "_source": "https://github.com/arboshiki/lobipanel.git",
+  "_target": "~0.3.1",
+  "_originalSource": "lobipanel",
+  "_direct": true
+}
